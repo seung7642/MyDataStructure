@@ -1,0 +1,6 @@
+/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructureLibrary/bin/Debug/MyDataStructureLibrary.dll
+/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructureLibrary/bin/Debug/MyDataStructureLibrary.pdb
+/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructureLibrary/obj/Debug/MyDataStructureLibrary.csprojAssemblyReference.cache
+/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructureLibrary/obj/Debug/MyDataStructureLibrary.csproj.CoreCompileInputs.cache
+/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructureLibrary/obj/Debug/MyDataStructureLibrary.dll
+/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructureLibrary/obj/Debug/MyDataStructureLibrary.pdb

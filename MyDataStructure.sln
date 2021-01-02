@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDataStructure", "MyDataStructure\MyDataStructure.csproj", "{75D37BC6-D506-46E4-8988-977B14AE99C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDataStructureLibrary", "MyDataStructureLibrary\MyDataStructureLibrary.csproj", "{16CDD777-6F5F-4437-9BA2-545F330F8B9D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75D37BC6-D506-46E4-8988-977B14AE99C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75D37BC6-D506-46E4-8988-977B14AE99C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75D37BC6-D506-46E4-8988-977B14AE99C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75D37BC6-D506-46E4-8988-977B14AE99C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16CDD777-6F5F-4437-9BA2-545F330F8B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16CDD777-6F5F-4437-9BA2-545F330F8B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16CDD777-6F5F-4437-9BA2-545F330F8B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16CDD777-6F5F-4437-9BA2-545F330F8B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
