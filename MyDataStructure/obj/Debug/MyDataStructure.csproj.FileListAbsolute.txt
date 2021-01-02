@@ -1,9 +1,0 @@
-/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructure/bin/Debug/MyDataStructure.exe
-/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructure/bin/Debug/MyDataStructure.pdb
-/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructure/obj/Debug/MyDataStructure.csprojAssemblyReference.cache
-/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructure/obj/Debug/MyDataStructure.csproj.CoreCompileInputs.cache
-/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructure/obj/Debug/MyDataStructure.exe
-/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructure/obj/Debug/MyDataStructure.pdb
-/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructure/bin/Debug/MyDataStructureLibrary.dll
-/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructure/bin/Debug/MyDataStructureLibrary.pdb
-/Users/seungho/dev/RiderProjects/MyDataStructure/MyDataStructure/obj/Debug/MyDataStructure.csproj.CopyComplete
