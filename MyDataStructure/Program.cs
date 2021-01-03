@@ -8,7 +8,7 @@ namespace MyDataStructure
     {
         public static void Main(string[] args)
         {
-            MyArrayListTest.Test();
+            MyListTest.Test();
         }
     }
 }
