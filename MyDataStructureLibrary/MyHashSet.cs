@@ -2,18 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Security.Policy;
 
 namespace MyDataStructureLibrary
 {
-    public class MyHashSet<T> : ICollection<T>, ISet<T>
+    public class MyHashSet<T> : IEnumerable<T>
     {
         private MyList<T>[] _buckets;
-        private int _count;
         
+        [ContractPublicPropertyName("Count")]
+        private int _count;
+
         [ContractPublicPropertyName("Comparer")]
         private IEqualityComparer<T> _comparer;
-        
-        #region Constructors
+
+        public int Count
+        {
+            get {
+                return _count;
+            }
+        }
+
+        #region [Constructors]
 
         public MyHashSet() 
             : this(12, EqualityComparer<T>.Default)
@@ -70,10 +80,49 @@ namespace MyDataStructureLibrary
             _buckets = newBucket;
         }
 
-        void ICollection<T>.Add(T item)
+        public bool Add(T item)
         {
-            throw new System.NotImplementedException();
+            if (_count >= _buckets.Length * HashHelpers.RESIZE_FACTOR) {
+                Resize(_buckets.Length * HashHelpers.PRIME_FACTOR);
+            }
+            
+            var hashCode = _comparer.GetHashCode(item) & 0x7fffffff;
+            var index = hashCode % _buckets.Length;
+            var bucket = _buckets[index];
+            if (bucket == null) {
+                bucket = new MyList<T>();
+                _buckets[index] = bucket;
+            }
+
+            if (!_buckets[index].Contains(item)) {
+                _buckets[index].Add(item);
+                _count++;
+                return true;
+            }
+
+            return false;
         }
+
+        public bool Remove(T item)
+        {
+            var bucket = FindBucketList(item);
+            if (bucket == null)
+                return false;
+
+            if (bucket.Remove(item)) {
+                _count--;
+                return true;
+            }
+
+            return false;
+        }
+        
+        private void Initialize(int capacity)
+        {
+            var size = HashHelpers.GetPrime(capacity);
+            _buckets = new MyList<T>[size];
+        }
+        
 
         public void Clear()
         {
@@ -87,11 +136,7 @@ namespace MyDataStructureLibrary
                 return false;
             }
 
-            foreach (var element in bucket) {
-                
-            }
-
-            return false;
+            return bucket.Contains(T => _comparer.Equals(T, item));
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -99,76 +144,71 @@ namespace MyDataStructureLibrary
             throw new System.NotImplementedException();
         }
 
-        public bool Remove(T item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int Count { get; }
-        public bool IsReadOnly { get; }
         public IEnumerator<T> GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return new MyHashSetEnumerator<T>(this);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
+    }
 
-        bool ISet<T>.Add(T item)
+    #region [Enumerator class]
+    public class MyHashSetEnumerator<T> : IEnumerator<T>
+    {
+        private MyHashSet<T> _hashSet;
+        private IEnumerator<T> _iterator;
+        private int _index;
+
+        public MyHashSetEnumerator(MyHashSet<T> hashSet)
         {
-            throw new System.NotImplementedException();
+            _hashSet = hashSet;
+            _index = 0;
+            _iterator = FindNextIterator();
         }
 
-        public void ExceptWith(IEnumerable<T> other)
+        public IEnumerator<T> FindNextIterator()
         {
-            throw new System.NotImplementedException();
+            // TODO: 현재 인덱스가 해시셋의 버킷배열의 크기보다 작을 때까지 반복한다.
+            // 버킷배열에 할당된 연결리스트를 가져온 후 현재 인덱스를 하나 증가시킨다.
+            // 연결리스트가 존재하고 리스트에 추가되어 있는 항목의 갯수가 0보다 크다면
+            // 연결리스트의 GetEnumerator() 결과를 리턴한다. 
+            while (_index < _hashSet.Count) {
+                
+            }
+            
+            return null;
         }
 
-        public void IntersectWith(IEnumerable<T> other)
+        public T Current
         {
-            throw new System.NotImplementedException();
+            get;
         }
 
-        public bool IsProperSubsetOf(IEnumerable<T> other)
+        public bool MoveNext()
         {
-            throw new System.NotImplementedException();
+            // _iterator가 null이 아니고 _iterator의 MoveNext() 결과값이 false 일때까지
+            // FindNextEnumerator를 호출하여 다음 버킷에 있는 연결리스트를 찾는다. 
+            while (_iterator != null && !_iterator.MoveNext()) {
+                
+            }
+
+            // IEnumerator가 null이 아니면 MoveNext()가 성공한 것이므로 Current를 호출할 수 있다.
+            return _iterator != null;
         }
 
-        public bool IsProperSupersetOf(IEnumerable<T> other)
+        public void Reset()
         {
-            throw new System.NotImplementedException();
+            _index = 0;
         }
 
-        public bool IsSubsetOf(IEnumerable<T> other)
-        {
-            throw new System.NotImplementedException();
-        }
+        object IEnumerator.Current => Current;
 
-        public bool IsSupersetOf(IEnumerable<T> other)
+        public void Dispose()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public bool Overlaps(IEnumerable<T> other)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool SetEquals(IEnumerable<T> other)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void SymmetricExceptWith(IEnumerable<T> other)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UnionWith(IEnumerable<T> other)
-        {
-            throw new System.NotImplementedException();
         }
     }
+    #endregion
 }
