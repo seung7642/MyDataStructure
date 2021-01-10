@@ -6,6 +6,14 @@ using System.Security.Policy;
 
 namespace MyDataStructureLibrary
 {
+    /// <summary>
+    /// Dictionary<T>와 유사하게 배열 기반 구현이고, 버킷 배열을 사용하여 해시 값을 Slots
+    /// 배열에 매핑한다. 동일한 해시 값에 대해선 해당 인덱스의 리스트에 추가한다.
+    ///
+    /// capacity는 항상 소수(prime)다. 따라서, 원소가 추가됨에 따라 크기를 리사이징하게되면
+    /// capacity는 마지막 capacity의 두 배보다 큰 다음 소수(prime)로 선택된다. 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class MyHashSet<T> : IEnumerable<T>
     {
         private MyList<T>[] _buckets;
@@ -15,13 +23,6 @@ namespace MyDataStructureLibrary
 
         [ContractPublicPropertyName("Comparer")]
         private IEqualityComparer<T> _comparer;
-
-        public int Count
-        {
-            get {
-                return _count;
-            }
-        }
 
         #region [Constructors]
 
@@ -153,62 +154,62 @@ namespace MyDataStructureLibrary
         {
             return GetEnumerator();
         }
-    }
-
-    #region [Enumerator class]
-    public class MyHashSetEnumerator<T> : IEnumerator<T>
-    {
-        private MyHashSet<T> _hashSet;
-        private IEnumerator<T> _iterator;
-        private int _index;
-
-        public MyHashSetEnumerator(MyHashSet<T> hashSet)
+        
+        #region [Enumerator class]
+        public class MyHashSetEnumerator<T> : IEnumerator<T>
         {
-            _hashSet = hashSet;
-            _index = 0;
-            _iterator = FindNextIterator();
-        }
+            private MyHashSet<T> _hashSet;
+            private IEnumerator<T> _iterator;
+            private int _index;
 
-        public IEnumerator<T> FindNextIterator()
-        {
-            // TODO: 현재 인덱스가 해시셋의 버킷배열의 크기보다 작을 때까지 반복한다.
-            // 버킷배열에 할당된 연결리스트를 가져온 후 현재 인덱스를 하나 증가시킨다.
-            // 연결리스트가 존재하고 리스트에 추가되어 있는 항목의 갯수가 0보다 크다면
-            // 연결리스트의 GetEnumerator() 결과를 리턴한다. 
-            while (_index < _hashSet.Count) {
-                
+            public MyHashSetEnumerator(MyHashSet<T> hashSet)
+            {
+                _hashSet = hashSet;
+                _index = 0;
+                _iterator = FindNextIterator();
             }
+
+            public IEnumerator<T> FindNextIterator()
+            {
+                // TODO: 현재 인덱스가 해시셋의 버킷배열의 크기보다 작을 때까지 반복한다.
+                // 버킷배열에 할당된 연결리스트를 가져온 후 현재 인덱스를 하나 증가시킨다.
+                // 연결리스트가 존재하고 리스트에 추가되어 있는 항목의 갯수가 0보다 크다면
+                // 연결리스트의 GetEnumerator() 결과를 리턴한다. 
+                while (_index < _hashSet._count) {
+                
+                }
             
-            return null;
-        }
-
-        public T Current
-        {
-            get;
-        }
-
-        public bool MoveNext()
-        {
-            // _iterator가 null이 아니고 _iterator의 MoveNext() 결과값이 false 일때까지
-            // FindNextEnumerator를 호출하여 다음 버킷에 있는 연결리스트를 찾는다. 
-            while (_iterator != null && !_iterator.MoveNext()) {
-                
+                return null;
             }
 
-            // IEnumerator가 null이 아니면 MoveNext()가 성공한 것이므로 Current를 호출할 수 있다.
-            return _iterator != null;
-        }
+            public T Current
+            {
+                get;
+            }
 
-        public void Reset()
-        {
-            _index = 0;
-        }
+            public bool MoveNext()
+            {
+                // _iterator가 null이 아니고 _iterator의 MoveNext() 결과값이 false 일때까지
+                // FindNextEnumerator를 호출하여 다음 버킷에 있는 연결리스트를 찾는다. 
+                while (_iterator != null && !_iterator.MoveNext()) {
+                
+                }
 
-        object IEnumerator.Current => Current;
+                // IEnumerator가 null이 아니면 MoveNext()가 성공한 것이므로 Current를 호출할 수 있다.
+                return _iterator != null;
+            }
 
-        public void Dispose()
-        {
+            public void Reset()
+            {
+                _index = 0;
+            }
+
+            object IEnumerator.Current => Current;
+
+            public void Dispose()
+            {
+            }
         }
+        #endregion
     }
-    #endregion
 }
